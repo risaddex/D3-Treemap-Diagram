@@ -1,0 +1,53 @@
+// vars
+$transparent: #e7000000;
+
+// reset
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100%;
+  width: auto;
+  background-color: $transparent;
+}
+
+.container {
+  width: 960;
+  display: flex;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  flex-direction: column;
+  align-items: center;
+
+}
+header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+
+  h2{
+    padding: 0px;
+    margin: 0px;
+  }
+
+  h3 {
+    font-size: 0.8em;
+    padding: 0px;
+    margin: 0px;
+  }
+}
+
+#tooltip {
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  text-align: justify;
+  padding: 5px;
+  box-shadow: 1px 1px 10px;
+  border-radius: 10px;
+  pointer-events: none;  
+  background-color: $transparent;
+}
