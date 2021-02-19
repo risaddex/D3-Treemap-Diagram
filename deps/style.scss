@@ -22,9 +22,9 @@ html, body {
 }
 header {
   display: flex;
-  width: 100%;
-  align-items: center;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
   h2{
     padding: 0px;
@@ -38,6 +38,10 @@ header {
   }
 }
 
+svg {
+  // stroke: black;
+  // stroke-opacity: 0.9;
+}
 #tooltip {
   font-size: 0.9em;
   display: flex;
