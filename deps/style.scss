@@ -12,11 +12,10 @@ html, body {
 }
 
 .container {
-  // width: 960;
+  // width: 960px;
   display: flex;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  flex-direction: column;
+  padding: 1rem;
+  flex-direction: row;
   align-items: center;
   background-color: $transparent;
 
@@ -59,5 +58,5 @@ svg {
 }
 
 #legend {
-  float: right;
+
 }

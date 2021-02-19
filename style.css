@@ -9,9 +9,8 @@ html, body {
 
 .container {
   display: flex;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  flex-direction: column;
+  padding: 1rem;
+  flex-direction: row;
   align-items: center;
   background-color: #e7000000;
 }
@@ -48,10 +47,6 @@ svg .tile {
   border-radius: 10px;
   pointer-events: none;
   background-color: #e7000000;
-}
-
-#legend {
-  float: right;
 }
 
 /*# sourceMappingURL=style.css.map */

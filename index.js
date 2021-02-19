@@ -1,7 +1,7 @@
 //! CONSTS
 const MARGIN = 30;
-const WIDTH = 750 -   MARGIN;
-const HEIGHT = 750 -  MARGIN;
+const WIDTH = 700 - 2 * MARGIN;
+const HEIGHT = 700 - 2 * MARGIN;
 const projectName = 'tree-map' //Makes FCC's tester preselect this project
 
 //! DATA
@@ -15,10 +15,9 @@ const buildTreemapOnFetch = (error, dataset) => {
   //! SVG
   const svg = d3.select('.chart-container')
     .append('svg')
-      .attr('width', WIDTH + 2 * MARGIN)
-      .attr('height', HEIGHT)
+    .attr('width', WIDTH)
+    .attr('height', HEIGHT)
     .append('g')
-    .attr('transform', `translate(${MARGIN}, ${MARGIN})`);
 
   const root = d3.hierarchy(dataset)
   //? gives an unique "id" to each leaf in the tree, forked from @paycoguy & @Christian-Paul [https://codepen.io/freeCodeCamp/full/KaNGNR]
@@ -42,7 +41,7 @@ const buildTreemapOnFetch = (error, dataset) => {
   //! DEFINE TREE'S ATTRIBUTES
   d3.treemap()
     .size([WIDTH, HEIGHT])
-    .padding(2)
+    .padding(1)
     (root);
 
 // render the tree
@@ -52,8 +51,8 @@ const buildTreemapOnFetch = (error, dataset) => {
     .enter()
     .append('rect')
     // .attr()
-    .attr('x', d => d.x0 - 15)
-    .attr('y', d => d.y0 - 15)
+    .attr('x', d => d.x0 )
+    .attr('y', d => d.y0 )
     .attr('width', d => d.x1 - d.x0)
     .attr('height', d => d.y1 - d.y0)
     // .data(DATA)
@@ -64,26 +63,35 @@ const buildTreemapOnFetch = (error, dataset) => {
     .attr('class', 'tile');
     
 
-  svg.selectAll('square')
+  const legend = d3
+    .select('#legend')
+    .attr('height', LEGEND_SIZE * 10)
+    .attr('width', 'auto');
+
+  legend.selectAll('square')
   .data(colorScale.domain())
   .enter()
   .append('rect')
-    .attr('x', WIDTH )
-    .attr('y', (d, i) => 100 + i * (LEGEND_SIZE + 5))
+    .attr('class', 'legend-item')
+    .attr('x', MARGIN )
+    .attr('y', (_, i) => i * (LEGEND_SIZE + 5))
     .attr('width', LEGEND_SIZE)
     .attr('height', LEGEND_SIZE)
     .attr('fill', d => colorScale(d));
 
-svg.selectAll('labels')
+legend.selectAll('labels')
   .data(colorScale.domain())
   .enter()
   .append('text')
-    .attr('x', WIDTH )
-    .attr('y', (_, i) => 100 + i * (LEGEND_SIZE + 5) + (LEGEND_SIZE / 2))
+    .attr('x', MARGIN + LEGEND_SIZE * 2 )
+    .attr('y', (_, i) =>  i * (LEGEND_SIZE + 5 ))
     .attr('fill', d => colorScale(d))
     .text(d => d)
     .attr('text-anchor', 'left')
-    .style('alignment-baseline', 'middle');
+    .style('alignment-baseline', 'middle')
+    .attr('transform', `translate(${0}, ${10})`)
+
+    
 
 
 // text
