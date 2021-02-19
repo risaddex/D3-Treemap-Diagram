@@ -8,12 +8,12 @@ html, body {
 }
 
 .container {
-  width: 960;
   display: flex;
   padding-top: 1rem;
   padding-bottom: 1rem;
   flex-direction: column;
   align-items: center;
+  background-color: #e7000000;
 }
 
 header {
@@ -32,6 +32,10 @@ header h3 {
   margin: 0px;
 }
 
+svg .tile {
+  stroke: white;
+}
+
 #tooltip {
   font-size: 0.9em;
   display: flex;
@@ -44,6 +48,10 @@ header h3 {
   border-radius: 10px;
   pointer-events: none;
   background-color: #e7000000;
+}
+
+#legend {
+  float: right;
 }
 
 /*# sourceMappingURL=style.css.map */

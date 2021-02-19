@@ -12,12 +12,13 @@ html, body {
 }
 
 .container {
-  width: 960;
+  // width: 960;
   display: flex;
   padding-top: 1rem;
   padding-bottom: 1rem;
   flex-direction: column;
   align-items: center;
+  background-color: $transparent;
 
 }
 header {
@@ -39,8 +40,9 @@ header {
 }
 
 svg {
-  // stroke: black;
-  // stroke-opacity: 0.9;
+  .tile {
+    stroke: white;
+  }
 }
 #tooltip {
   font-size: 0.9em;
@@ -54,4 +56,8 @@ svg {
   border-radius: 10px;
   pointer-events: none;  
   background-color: $transparent;
+}
+
+#legend {
+  float: right;
 }
