@@ -1,7 +1,7 @@
 //! CONSTS
 const MARGIN = 30;
-const WIDTH = 700 - 2 * MARGIN;
-const HEIGHT = 700 - 2 * MARGIN;
+const WIDTH = 950 - 2 * MARGIN;
+const HEIGHT = 950 - 2 * MARGIN;
 const projectName = 'tree-map' //Makes FCC's tester preselect this project
 
 //! DATA
@@ -19,16 +19,14 @@ const buildTreemapOnFetch = (error, dataset) => {
     .attr('height', HEIGHT)
     .append('g')
 
+  //! TOOLTIP
+  const tooltip = d3.select('.chart-container')
+    .append('div')
+    .attr('id', 'tooltip')
+    .style('opacity', 0);
+
+  //!ROOT OF TREE
   const root = d3.hierarchy(dataset)
-  //? gives an unique "id" to each leaf in the tree, forked from @paycoguy & @Christian-Paul [https://codepen.io/freeCodeCamp/full/KaNGNR]
-    // .eachBefore( d => {
-    //   d.data.id = d.parent ? `${d.parent.data.id}.${d.data.name}` : d.data.name
-    // })
-    // .eachBefore(d => {
-    //   if (!d.children) {
-    //     DATA.push(d.data)
-    //   }
-    // })
     .sum(d => d.value)
     .sort((a, b) => b.height - a.height);
 
@@ -60,15 +58,38 @@ const buildTreemapOnFetch = (error, dataset) => {
     .attr('data-name', d => d.data.name)
     .attr('data-category', d => d.data.category)
     .attr('data-value', d => d.data.value)
-    .attr('class', 'tile');
+    .attr('class', 'tile')
+    .on('mouseover', (d) => {
+      tooltip
+        .transition()
+        .duration(200)
+        .style('opacity', .9)
+        .attr('data-value', d.data.value)
+      tooltip
+        .html(
+          `
+          Name: ${d.data.name}<br />
+          Category: ${d.data.category}<br/>
+          Value: ${d.data.value}
+           
+          `
+        )
+        .style('left', `${d3.event.screenX - MARGIN}px`)
+        .style('top', `${d3.event.clientY -  MARGIN }px`)
+    })
+    .on('mouseout', () => {
+      tooltip
+        .transition()
+        .duration(200)
+        .style('opacity', 0)
+    });
     
-
+  //! LEGEND
   const legend = d3
     .select('#legend')
-    .attr('height', LEGEND_SIZE * 10)
-    .attr('width', 'auto');
+    .attr('height', LEGEND_SIZE * 10);
 
-  legend.selectAll('square')
+  legend.selectAll('legend-square')
   .data(colorScale.domain())
   .enter()
   .append('rect')
@@ -79,7 +100,7 @@ const buildTreemapOnFetch = (error, dataset) => {
     .attr('height', LEGEND_SIZE)
     .attr('fill', d => colorScale(d));
 
-legend.selectAll('labels')
+legend.selectAll('legend-label')
   .data(colorScale.domain())
   .enter()
   .append('text')
@@ -91,22 +112,17 @@ legend.selectAll('labels')
     .style('alignment-baseline', 'middle')
     .attr('transform', `translate(${0}, ${10})`)
 
-    
-
-
+  
 // text
-// svg.selectAll('text')
-// .data(root.leaves())
-// .enter()
-// .append('text')
-//   .attr('x', d => d.x0)
-//   .attr('y', d => d.y0)
-//   .text(d => d.data.name)
-//   .attr('font-size', '0.7em')
-//   .attr('fill', 'white')
-//   //?***************************?/
-  console.log(DATA)
-  //?***************************?
+svg.selectAll('text')
+.data(root.leaves())
+.enter()
+.append('text')
+  .attr('x', d => d.x0 + 5)
+  .attr('y', d => d.y0 + LEGEND_SIZE)
+  .text(d => d.data.name.replace(/([:-].*).$/g, ""))
+  .attr('font-size', '0.5em')
+  .attr('fill', 'black');
 } 
 
 //! 
